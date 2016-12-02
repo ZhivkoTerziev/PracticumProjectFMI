@@ -14,75 +14,119 @@
     <script src="vendor/jquery/jquery-3.1.1.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
+
+    <style>
+        .big-div {
+            margin-top: 50px;
+            margin-right: 50px;
+            margin-bottom: 10px;
+            margin-left: 50px;
+        }
+
+        .movie-type-div {
+            margin-left: 80px;
+        }
+
+        .movie-year-div {
+            margin-left: 80px;
+            width: 30%;
+        }
+
+        .movie-plot-div {
+            margin-left: 80px;
+        }
+
+        .default-style-results {
+            display: inline;
+            background-color: white;
+            font-size: 20px;
+            color: black;
+            font-style: normal;
+        }
+    </style>
 </head>
 <body>
-<br/>
-<br/>
 
-<h1>Movie</h1>
-<br/>
-<br/>
-<label for="movieId">Movie ID:</label>
-<input id="movieId" type="number" name="id">
-<br/>
-<br/>
-<label for="movieTitle">Movie Title:</label>
-<select id="movieTitle" name="title">
-    <option value=""></option>
-    <option value="Star Wars">Star Wars</option>
-    <option value="The Lord of the Rings">The Lord of the Rings</option>
-    <option value="Men in Black">Men in Black</option>
-    <option value="Superman">Superman</option>
-    <option value="Batman">Batman</option>
-</select>
-<br/>
-<br/>
-<label for="movieType">Movie Type:</label>
-
-<div id="movieType">
-    <input id="movieType1" type="radio" name="type" value="movie"> Movie<br>
-    <input id="movieType2" type="radio" name="type" value="series"> Series<br>
-    <input id="movieType3" type="radio" name="type" value="episode"> Episode<br>
-</div>
-<br/>
-<br/>
-<label for="movieYear">Movie Year:</label>
-<input id="movieYear" type="range" name="year" value="1949" min="1949" max="2016">
-<br/>
-<br/>
-<label for="moviePlot">Movie Plot:</label>
-<br/>
-Short
-<label class="switch">
-    <input id="moviePlot" type="checkbox">
-
-    <div class="slider round"></div>
-</label>
-Full
-<br/>
-<br/>
-<input id="myBtn" type="button" value="Submit">
-<br/>
-<br/>
-<input id="myBtnStyleDefault" type="button" value="Default Style">
-<input id="myBtnStyleColor" type="button" value="Color Style">
-<br/>
-<br/>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Филмите:</h3>
+<div class="big-div">
+    <h1>Movie</h1>
+    <br/>
+    <br/>
+    <label for="movieId">Movie ID:</label>
+    <input id="movieId" type="text" name="id">
+    <br/>
+    <br/>
+    <label for="movieTitle">Movie Title:</label>
+    <select id="movieTitle" name="title">
+        <option value=""></option>
+        <option value="Star Wars">Star Wars</option>
+        <option value="The Lord of the Rings">The Lord of the Rings</option>
+        <option value="Men in Black">Men in Black</option>
+        <option value="Superman">Superman</option>
+        <option value="Batman">Batman</option>
+        <option value="Spiderman">Spiderman</option>
+        <option value="Punisher">Punisher</option>
+        <option value="Titanic">Titanic</option>
+        <option value="Gladiator">Gladiator</option>
+        <option value="Sonic">Sonic</option>
+        <option value="The Hobbit">The Hobbit</option>
+    </select>
+    <br/>
+    <br/>
+    <label for="movieType">Movie Type:</label>
+    <div id="movieType">
+        <div class="movie-type-div">
+            <input id="movieType1" type="radio" name="type" value="movie"> Movie<br>
+            <input id="movieType2" type="radio" name="type" value="series"> Series<br>
+            <input id="movieType3" type="radio" name="type" value="episode"> Episode<br>
+        </div>
     </div>
+    <br/>
+    <br/>
+    <label for="movieYear">Movie Year:</label>
+    <br/>
+    <div class="range range-info movie-year-div">
+        <input id="movieYear" type="range" name="range" min="1949" max="2016" value="1949"
+               onchange="rangeInfo.value=value">
+        <output id="rangeInfo">1949</output>
+    </div>
+    <br/>
+    <br/>
+    <label for="moviePlot">Movie Plot:</label>
+    <br/>
+    <div class="movie-plot-div">
+        Short
+        <label class="switch">
+            <input id="moviePlot" type="checkbox">
 
-    <ul id="movies" class="list-group" style="min-height:241px;">
+            <div class="slider round"></div>
+        </label>
+        Full
+    </div>
+    <br/>
+    <br/>
+    <input id="myBtn" class="btn btn-primary" type="button" value="Submit">
+    <br/>
+    <br/>
+    <input id="myBtnStyleDefault" class="btn btn-default" type="button" value="Default Style">
+    <input id="myBtnStyleDifferent" class="btn btn-warning" type="button" value="Different Style">
+    <br/>
+    <br/>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Movies:</h3>
+        </div>
 
-    </ul>
+        <ul id="movies" class="list-group" style="min-height:241px;">
+
+        </ul>
+    </div>
 </div>
 
 <li class="list-group-item" style="display:none" id="temp">
     <div class="row">
-        <h3 style="display: inline" id="tempTitle">title</h3>
-        <h3 style="display: inline" id="tempReleased">title</h3>
-        <h3 style="display: inline" id="tempGenre">title</h3>
+        <h3 class="tempTitleClass default-style-results" id="tempTitle">title</h3>
+        <h3 class="tempReleasedClass default-style-results" id="tempReleased">title</h3>
+        <h3 class="tempGenreClass default-style-results" id="tempGenre">title</h3>
     </div>
 </li>
 </body>
@@ -99,6 +143,8 @@ Full
     });
 
     document.getElementById("myBtn").addEventListener("click", myFunction);
+    document.getElementById("myBtnStyleDefault").addEventListener("click", styleDefault);
+    document.getElementById("myBtnStyleDifferent").addEventListener("click", styleDifferent);
 
     function myFunction() {
 
@@ -164,6 +210,55 @@ Full
 
     }
 
+    function styleDefault() {
+        console.log("styleDefault");
+        $(".tempTitleClass").css({
+            "display": "inline",
+            "backgroundColor": "white",
+            "font-size": "20px",
+            "color": "black",
+            "fontStyle": "normal"
+        });
+        $(".tempReleasedClass").css({
+            "display": "inline",
+            "backgroundColor": "white",
+            "font-size": "20px",
+            "color": "black",
+            "fontStyle": "normal"
+        });
+        $(".tempGenreClass").css({
+            "display": "inline",
+            "backgroundColor": "white",
+            "font-size": "20px",
+            "color": "black",
+            "fontStyle": "normal"
+        });
+    }
+
+    function styleDifferent() {
+        console.log("styleDifferent");
+        $(".tempTitleClass").css({
+            "display": "block",
+            "backgroundColor": "#2BBBAD",
+            "font-size": "30px",
+            "color": "white",
+            "fontStyle": "italic"
+        });
+        $(".tempReleasedClass").css({
+            "display": "block",
+            "backgroundColor": "#4285F4",
+            "font-size": "30px",
+            "color": "white",
+            "fontStyle": "italic"
+        });
+        $(".tempGenreClass").css({
+            "display": "block",
+            "backgroundColor": "#ff4444",
+            "font-size": "30px",
+            "color": "white",
+            "fontStyle": "italic"
+        });
+    }
 
 </script>
 
