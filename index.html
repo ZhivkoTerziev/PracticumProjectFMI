@@ -6,21 +6,165 @@
     <meta name="keywords" content="HTML, CSS, XML, JavaScript">
     <meta name="author" content="Zhivko Terziev">
 
-    <title>Weather</title>
+    <title>Movies</title>
 
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css"/>
-    <script src="js/main.js"></script>
 
+    <script src="vendor/jquery/jquery-3.1.1.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
-<header>
-    <h1>Weather</h1>
-    <img src="img/logo.png">
-</header>
-<h2>Социална мрежа</h2>
-<p>Намерете своите приятели. Отбелязвайте местата, които посещавате и запазвайте вашите впечатления.</p>
-<img src="img/outdoor.png">
-<button type="button">Влез</button>
-<button type="button">Регистрация</button>
+<br/>
+<br/>
+
+<h1>Movie</h1>
+<br/>
+<br/>
+<label for="movieId">Movie ID:</label>
+<input id="movieId" type="number" name="id">
+<br/>
+<br/>
+<label for="movieTitle">Movie Title:</label>
+<select id="movieTitle" name="title">
+    <option value=""></option>
+    <option value="Star Wars">Star Wars</option>
+    <option value="The Lord of the Rings">The Lord of the Rings</option>
+    <option value="Men in Black">Men in Black</option>
+    <option value="Superman">Superman</option>
+    <option value="Batman">Batman</option>
+</select>
+<br/>
+<br/>
+<label for="movieType">Movie Type:</label>
+
+<div id="movieType">
+    <input id="movieType1" type="radio" name="type" value="movie"> Movie<br>
+    <input id="movieType2" type="radio" name="type" value="series"> Series<br>
+    <input id="movieType3" type="radio" name="type" value="episode"> Episode<br>
+</div>
+<br/>
+<br/>
+<label for="movieYear">Movie Year:</label>
+<input id="movieYear" type="range" name="year" value="1949" min="1949" max="2016">
+<br/>
+<br/>
+<label for="moviePlot">Movie Plot:</label>
+<br/>
+Short
+<label class="switch">
+    <input id="moviePlot" type="checkbox">
+
+    <div class="slider round"></div>
+</label>
+Full
+<br/>
+<br/>
+<input id="myBtn" type="button" value="Submit">
+<br/>
+<br/>
+<input id="myBtnStyleDefault" type="button" value="Default Style">
+<input id="myBtnStyleColor" type="button" value="Color Style">
+<br/>
+<br/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Филмите:</h3>
+    </div>
+
+    <ul id="movies" class="list-group" style="min-height:241px;">
+
+    </ul>
+</div>
+
+<li class="list-group-item" style="display:none" id="temp">
+    <div class="row">
+        <h3 style="display: inline" id="tempTitle">title</h3>
+        <h3 style="display: inline" id="tempReleased">title</h3>
+        <h3 style="display: inline" id="tempGenre">title</h3>
+    </div>
+</li>
 </body>
+
+<script>
+
+    var moviePlot = 'short';
+    $('#moviePlot').change(function () {
+        if (moviePlot == 'short') {
+            moviePlot = 'full';
+        } else {
+            moviePlot = 'short';
+        }
+    });
+
+    document.getElementById("myBtn").addEventListener("click", myFunction);
+
+    function myFunction() {
+
+//        values from the elements
+        var movieId = document.getElementById("movieId").value;
+        var movieTitle = document.getElementById("movieTitle").value;
+
+        var movieType = '';
+        if (document.getElementById("movieType1").checked) {
+            movieType = document.getElementById("movieType1").value;
+        } else if (document.getElementById("movieType2").checked) {
+            movieType = document.getElementById("movieType2").value;
+        } else if (document.getElementById("movieType3").checked) {
+            movieType = document.getElementById("movieType3").value;
+        }
+
+        var movieYear = document.getElementById("movieYear").value;
+
+
+//        validation
+        var numberOfValues = 0;
+
+        if (movieId) {
+            numberOfValues++;
+            console.log("movieId is not empty");
+        } else {
+            console.log("movieId is empty");
+        }
+
+        if (movieTitle) {
+            numberOfValues++;
+            console.log("movieTitle is not empty");
+        } else {
+            console.log("movieTitle is empty");
+        }
+
+        if (movieType) {
+            numberOfValues++;
+            console.log("movieType is not empty");
+        } else {
+            console.log("movieType is empty");
+        }
+
+        if (movieYear > 1949) {
+            numberOfValues++;
+            console.log("movieYear is not empty");
+        } else {
+            console.log("movieYear is empty");
+            movieYear = '';
+        }
+
+        if (moviePlot) {
+            numberOfValues++;
+            console.log("moviePlot is not empty");
+        }
+
+        if (numberOfValues < 3) {
+            alert("The request needs at least 3 parameters!");
+        } else {
+            loadMovieData(movieId, movieTitle, movieType, movieYear, moviePlot);
+            console.log(movieId, movieTitle, movieType, movieYear, moviePlot);
+        }
+
+    }
+
+
+</script>
+
 </html>
